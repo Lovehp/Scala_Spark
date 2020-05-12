@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<!--
+/**
+ *
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+-->
+<configuration>
+ 
+   <!-- 配置Phoenix时添加的配置项 -->
+   <!-- 为创建Schema添加的配置项，把Phoenix的Schema映射到HBase的Namespace上-->
+   <property> 
+      <name>phoenix.schema.isNamespaceMappingEnabled</name> 
+      <value>true</value> 
+   </property>
+   <!-- 创建索引  -->
+   <property> 
+      <name>hbase.regionserver.wal.codec</name>
+      <value>org.apache.hadoop.hbase.regionserver.wal.IndexedWALEditCodec</value>
+  </property>
+  <!-- 以下两项为了配置长扫描Table时使用 -->
+  <property> 
+      <name>hbase.client.scanner.timeout.period</name>
+      <value>900000</value> <!-- 900 000, 15 minutes -->
+  </property>
+  <property>
+      <name>hbase.rpc.timeout</name>
+      <value>900000</value> <!-- 15 minutes -->
+  </property>
+  <!-- 加大查询缓冲区，缺省值为：100M , 增加到：2G -->
+  <property> 
+      <name>phoenix.query.maxServerCacheBytes</name>
+      <value>2147483648</value>
+  </property>
+</configuration>
